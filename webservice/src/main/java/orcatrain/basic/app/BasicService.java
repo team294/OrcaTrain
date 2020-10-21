@@ -34,4 +34,15 @@ public class BasicService {
 		
 		return found;
 	}	
+
+	public boolean login(User loginUser) {
+		User u = getUserByName(loginUser.getUsername());
+		if (u!= null && u.getPassword().equals(loginUser.getPassword())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
 }

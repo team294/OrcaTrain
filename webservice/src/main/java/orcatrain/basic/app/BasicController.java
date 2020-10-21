@@ -23,13 +23,20 @@ public class BasicController {
     public static final String TEST_AUTH_TOKEN = "testtoken";
 
 	@Autowired
-	private BasicService basicService;    
+	private BasicService service;    
 
 	   
 	@PostMapping("/login")
     public String login(@RequestBody User user, HttpServletResponse response) {
         System.out.printf("POST /login %s %n",user.getUsername());
-        return TEST_AUTH_TOKEN;
+
+        if (service.login(user)) {
+            System.out.printf("login successfull for %s %n",user.getUsername());
+            return TEST_AUTH_TOKEN;
+        } else {
+            System.out.printf("login failed for %s %n",user.getUsername());
+            return "";
+        }
     }    
 
 
@@ -37,7 +44,7 @@ public class BasicController {
     public User getUserInfo(@RequestHeader(value = "AuthToken") String authToken, @PathVariable String username) {
         System.out.printf("GET /user/%s %n",username);
         checkAuthToken(authToken);
-        User user = basicService.getUserByName(username);
+        User user = service.getUserByName(username);
         return user;
     }    
 
@@ -45,17 +52,16 @@ public class BasicController {
     public List<User> getUsers(@RequestHeader(value = "AuthToken") String authToken) {
         System.out.printf("GET /user %n");
         checkAuthToken(authToken);
-        return basicService.getUsers();
+        return service.getUsers();
     }        
 
     private boolean checkAuthToken(String authToken) {
         boolean auth = false;
+        
         if (authToken.equals(TEST_AUTH_TOKEN)) {
             auth = true;
-        }
-
-        if (!auth) {
-            throw new RuntimeException("authToken is not authenticated");
+        } else {
+            throw new RuntimeException("Invalid authToken");
         }
 
         return auth;
