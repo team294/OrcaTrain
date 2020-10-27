@@ -5,17 +5,22 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class AppService {
-  constructor(private http: HttpClient) {}
-
   public user: User;
+  public userList: User[];
+
+  constructor(private http: HttpClient) {
+    this.userList = [
+      {"username":"paul","password":"abc","token":"testtoken1"},
+      {"username":"michael","password":"def","token":"testtoken2"},
+      {"username":"bryan","password":"ghi","token":"testtoken3"}
+    ];
+  }
+
+  // webservice related code
 
   private webservice = 'http://localhost:8090';
-  private token = '';
-
 
   public getWebservice() {
     return this.webservice;
@@ -23,7 +28,7 @@ export class AppService {
 
   // return the token needed to communicate to the webservice
   public getToken(): string {
-    return this.token;
+    return this.user.token;
   }
 
   // returns the http options with the necessary security token
@@ -66,8 +71,6 @@ export class AppService {
     .pipe(
       catchError(this.handleError) // then handle the error
     );
-    
-
   }
 
 }

@@ -2,19 +2,19 @@
 
 	<h1>Login</h1>
 
-	<table class="table table-bordered table-sm">
+	<table>
 		<tr>
-			<th scope="row">Username</th>
-			<td><input [(ngModel)]="user.username" class="form-control" /></td>
+			<th>Username</th>
+			<td><input type="text"/></td>
 		</tr>
 		<tr>
-			<th scope="row">Password</th>
-			<td><input [(ngModel)]="user.password" type="password" class="form-control" /></td>
+			<th>Password</th>
+			<td><input type="password"/></td>
 		</tr>
 	</table>
 
 	<div>
-        <button (click)="login()" class="btn btn-primary">Login</button>
+        <button (click)="login()" >Login</button>
 	</div>
 
 </div>

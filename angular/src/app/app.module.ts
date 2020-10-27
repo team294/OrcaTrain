@@ -1,25 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { MatchListComponent } from './match-list/match-list.component';
+import { UserListComponent } from './user-list/user-list.component';
+
+const appRoutes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'user-list', component: UserListComponent },
+  { path: 'login',   redirectTo: '/', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MatchListComponent
+    UserListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    RouterModule.forRoot(appRoutes)
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })

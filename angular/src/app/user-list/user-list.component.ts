@@ -4,24 +4,18 @@ import { User } from '../classes/user';
 import { AppService } from '../services/app.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class LoginComponent implements OnInit {
+export class UserListComponent implements OnInit {
 
   constructor(
     private appService: AppService,
     private router: Router    
   ) { }
 
-  user: User = new User();
-
   ngOnInit(): void {
-  }
-
-  login() {
-    this.router.navigate(['/user-list']);
   }
 
 }
