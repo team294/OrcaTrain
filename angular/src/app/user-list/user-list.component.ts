@@ -11,7 +11,7 @@ import { AppService } from '../services/app.service';
 export class UserListComponent implements OnInit {
 
   constructor(
-    private appService: AppService,
+    public appService: AppService,
     private router: Router    
   ) { }
 
