@@ -3,6 +3,7 @@ package orcatrain.basic.data;
 public class User {
 	private String username;
 	private String password;
+	private String token;
 
 	public User() {
 
@@ -30,6 +31,14 @@ public class User {
 
 	public String toString() {
 		return username+" "+password;
+	}
+
+	public void setToken(String t) {
+		this.token = t;
+	}
+
+	public String getToken() {
+		return this.token;
 	}
 
 }

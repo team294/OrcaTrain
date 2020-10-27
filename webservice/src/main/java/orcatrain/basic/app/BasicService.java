@@ -35,12 +35,12 @@ public class BasicService {
 		return found;
 	}	
 
-	public boolean login(User loginUser) {
+	public User login(User loginUser) {
 		User u = getUserByName(loginUser.getUsername());
 		if (u!= null && u.getPassword().equals(loginUser.getPassword())) {
-			return true;
+			return u;
 		} else {
-			return false;
+			return null;
 		}
 	}
 

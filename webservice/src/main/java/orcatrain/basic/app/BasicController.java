@@ -27,16 +27,18 @@ public class BasicController {
 
 	   
 	@PostMapping("/login")
-    public String login(@RequestBody User user, HttpServletResponse response) {
-        System.out.printf("POST /login %s %n",user.getUsername());
+    public User login(@RequestBody User login, HttpServletResponse response) {
+        System.out.printf("POST /login %s %n",login.getUsername());
+        User user = service.login(login);
 
-        if (service.login(user)) {
-            System.out.printf("login successfull for %s %n",user.getUsername());
-            return TEST_AUTH_TOKEN;
+        if (user != null) {
+            System.out.printf("login successfull for %s %n",login.getUsername());
+            user.setToken(TEST_AUTH_TOKEN);
         } else {
-            System.out.printf("login failed for %s %n",user.getUsername());
-            return "";
+            System.out.printf("login failed for %s %n",login.getUsername());
         }
+
+        return user;
     }    
 
 

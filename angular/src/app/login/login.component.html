@@ -5,16 +5,16 @@
 	<table class="table table-bordered table-sm">
 		<tr>
 			<th scope="row">Username</th>
-			<td><input class="form-control" /></td>
+			<td><input [(ngModel)]="user.username" class="form-control" /></td>
 		</tr>
 		<tr>
 			<th scope="row">Password</th>
-			<td><input type="password" class="form-control" /></td>
+			<td><input [(ngModel)]="user.password" type="password" class="form-control" /></td>
 		</tr>
 	</table>
 
 	<div>
-        <button class="btn btn-primary">Login</button>
+        <button (click)="login()" class="btn btn-primary">Login</button>
 	</div>
 
 </div>

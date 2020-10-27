@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AppService} from './services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'OrcaTrain';
+
+  constructor(private service: AppService, private router: Router, private activatedRoute: ActivatedRoute) {}
+
+
 }
