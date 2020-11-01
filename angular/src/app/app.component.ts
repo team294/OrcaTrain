@@ -10,7 +10,15 @@ import { AppService} from './services/app.service';
 export class AppComponent {
   title = 'OrcaTrain';
 
-  constructor(private service: AppService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private appService: AppService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
+  showMenu() {
+    return this.appService.showMenu;
+  }
+
+  logout() {
+    this.appService.logout();
+    this.router.navigate(['/login']);
+  }
 
 }

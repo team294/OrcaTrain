@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../classes/user';
+import { UserInfo } from '../classes/userInfo';
+import { UserLogin } from '../classes/userLogin';
 import { AppService } from '../services/app.service';
 
 @Component({
@@ -15,13 +16,27 @@ export class LoginComponent implements OnInit {
     private router: Router    
   ) { }
 
-  user: User = new User();
+  userLogin: UserLogin = new UserLogin();
+  userInfo: UserInfo = null;
+  errorMessage: string = null;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login() {
-    this.router.navigate(['/user-list']);
+    this.errorMessage = "Connecting to server ..."
+    this.appService.login(this.userLogin)
+      .subscribe((data) => {
+        this.errorMessage = "Response received"
+        if (data) {
+          this.errorMessage = "Login success"
+          this.appService.showMenu = true;
+          console.log("token from data in login:"+data.token);
+          this.appService.setUser(data);
+          this.router.navigate(['/main']);
+        } else {
+          this.errorMessage = "Login failed"
+        }
+      })
   }
 
 }

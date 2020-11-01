@@ -5,16 +5,20 @@
 	<table>
 		<tr>
 			<th>Username</th>
-			<td><input type="text"/></td>
+			<td><input [(ngModel)]="userLogin.username" type="text"/></td>
 		</tr>
 		<tr>
 			<th>Password</th>
-			<td><input type="password"/></td>
+			<td><input [(ngModel)]="userLogin.password" type="password"/></td>
 		</tr>
 	</table>
 
 	<div>
         <button (click)="login()" >Login</button>
+	</div>
+
+	<div *ngIf="errorMessage" style="margin-top: 20px; color: red;">
+		<p>{{ errorMessage }}</p>
 	</div>
 
 </div>

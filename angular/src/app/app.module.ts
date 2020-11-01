@@ -5,11 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { MainComponent } from './main/main.component';
+import { MatchListComponent } from './match-list/match-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'user-list', component: UserListComponent },
+  { path: 'match-list', component: MatchListComponent },
+  { path: 'main', component: MainComponent },
   { path: 'login',   redirectTo: '/', pathMatch: 'full' }
 ];
 
@@ -17,7 +19,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    UserListComponent
+    MatchListComponent,
+    MainComponent,
+    MatchListComponent
   ],
   imports: [
     BrowserModule,

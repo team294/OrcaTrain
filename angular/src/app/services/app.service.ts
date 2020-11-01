@@ -1,76 +1,100 @@
 import { Observable } from 'rxjs';
 import { HttpClient,  HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import { User } from '../classes/user';
+import { UserInfo } from '../classes/userInfo';
+import { UserLogin } from '../classes/userLogin';
+import { Match } from '../classes/match';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class AppService {
-  public user: User;
-  public userList: User[];
+  public showMenu = false;
+  private user: UserInfo;
+  public matchList: Match[];
+  
+  
+  private webservice = 'http://bcrscout.com:8090';
+  private eventId = '2020cadm';
 
-  constructor(private http: HttpClient) {
-    this.userList = [
-      {"username":"paul","password":"abc","token":"testtoken1"},
-      {"username":"michael","password":"def","token":"testtoken2"},
-      {"username":"bryan","password":"ghi","token":"testtoken3"}
-    ];
+  constructor(private http: HttpClient) {}
+
+  public setUser(user: UserInfo) {
+    if (user == null) {
+      this.user = user;
+      this.showMenu = false;
+    } else {
+      this.user = user;
+      this.showMenu = true;
+      localStorage.setItem('ORCA-USER', JSON.stringify(user));
+      console.log("setting user with token "+user.token);
+    }
   }
 
-  // webservice related code
+  // get the user from memory or local storage
+  public getUser(): UserInfo {
+    console.log('getUser()');
+    if (!this.user) {
+      console.log('getUser() user is null');
+      this.setUser(JSON.parse(localStorage.getItem('ORCA-USER')));
+      if (this.user) {
+        console.log('getUser() got user from localstorage ' + this.user.username);
+      } else {
+        console.log('getUser() no user in localstorage');
+      }
+    } else {
+      console.log('user is not null token:'+this.user.token);
+    }
+    return this.user;
+  }  
 
-  private webservice = 'http://localhost:8090';
+  // login method
+  public login(userLogin: UserLogin): Observable<UserInfo> {
+    console.log('login for username:'+userLogin.username);
 
+    // login to the server
+    const url = this.getWebservice() + '/user/login';
+    console.log(url);
+    return this.http.post<UserInfo>(url, userLogin, this.getHttpOptions());
+  }
+
+  // get matches method
+  public loadMatches(): Observable<Match[]> {
+    console.log('getting matches');
+
+    const url = this.getWebservice() + '/event/'+this.eventId+'/matches';
+    console.log(url);
+    return this.http.get<Match[]>(url, this.getHttpOptions());
+  }  
+
+  public logout() {
+    this.showMenu = false;
+    this.user = null;
+    localStorage.removeItem('ORCA-USER');
+  }
+
+  // returns the webservice to use
   public getWebservice() {
     return this.webservice;
   }
 
   // return the token needed to communicate to the webservice
   public getToken(): string {
-    return this.user.token;
+    var user = this.getUser();
+    var token = "";
+    if (user != null) {
+      token = user.token;
+    }
+    return token;
   }
 
   // returns the http options with the necessary security token
   public getHttpOptions() {
+    console.log("token for request:"+this.getToken());
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'AuthToken': this.getToken()
       })
     };
-  }
-
-  // webservice error handler
-  public handleError(error: HttpErrorResponse) {
-    console.log('error is '+error);
-
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  }
-
-  // login method
-  public login(userLogin: User): Observable<User> {
-    console.log('login for username:'+userLogin.username);
-
-    // login to the server
-    const url = this.getWebservice() + '/login';
-    console.log(url);
-    return this.http.post<User>(url, userLogin, this.getHttpOptions())
-    .pipe(
-      catchError(this.handleError) // then handle the error
-    );
-  }
+  }  
 
 }
