@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = "Response received"
         if (data) {
           this.errorMessage = "Login success"
-          this.appService.showMenu = true;
+          this.appService.setShowMenu(true);
           console.log("token from data in login:"+data.token);
           this.appService.setUser(data);
           this.router.navigate(['/main']);

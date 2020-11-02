@@ -7,10 +7,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable({providedIn: 'root'})
 export class AppService {
-  public showMenu = false;
+  private showMenu = false;
   private user: UserInfo;
-  public matchList: Match[];
-  
   
   private webservice = 'http://bcrscout.com:8090';
   private eventId = '2020cadm';
@@ -96,5 +94,10 @@ export class AppService {
       })
     };
   }  
-
+  public getShowMenu() {
+    return this.showMenu;
+  }
+  public setShowMenu(value: boolean) {
+    this.showMenu = value;
+  }
 }

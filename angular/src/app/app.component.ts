@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private appService: AppService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   showMenu() {
-    return this.appService.showMenu;
+    return this.appService.getShowMenu();
   }
 
   logout() {
