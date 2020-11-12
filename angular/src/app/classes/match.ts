@@ -8,6 +8,11 @@ export class Match {
     public matchNumber: string;
     public teamId: string;
 
+    // AUTO
+    public autoHighGoals = 0;
+    public autoMidGoals = 0;
+    public autoLowGoals = 0;
+
     // TELEOP
 
     public teleopHighGoals = 0;
