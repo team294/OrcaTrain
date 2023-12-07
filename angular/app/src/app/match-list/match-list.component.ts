@@ -10,7 +10,7 @@ import { AppService } from '../services/app.service';
 })
 export class MatchListComponent implements OnInit {
 
-  private matchList: Match[] | undefined;
+  matchList: Match[] | undefined;
 
   constructor(
     private appService: AppService,
@@ -39,10 +39,6 @@ export class MatchListComponent implements OnInit {
     const na = parseInt(a.teamId, 10)*10000+parseInt(a.matchNumber,10);
     const nb = parseInt(b.teamId, 10)*10000+parseInt(b.matchNumber,10);
     return na - nb;
-  }
-
-  getMatches() {
-    return this.matchList;
   }
 
 }

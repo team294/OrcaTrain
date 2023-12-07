@@ -22,7 +22,7 @@ export class AppService {
     } else {
       this.user = user;
       this.showMenu = true;
-      localStorage.setItem('ORCA-USER', JSON.stringify(user));
+      localStorage.setItem('ORCATRAIN-USER', JSON.stringify(user));
       console.log("setting user with token "+user.token);
     }
   }
@@ -32,7 +32,7 @@ export class AppService {
     console.log('getUser()', this.user);
     if (this.user.token == '') {
       console.log('getUser() user is null');
-      let localUser = localStorage.getItem('ORCA-USER');
+      let localUser = localStorage.getItem('ORCATRAIN-USER');
       if (localUser) this.setUser(JSON.parse(localUser));
       if (this.user) {
         console.log('getUser() got user from localstorage ', localUser);
@@ -67,7 +67,7 @@ export class AppService {
   public logout() {
     this.showMenu = false;
     this.user = {username: '', token: ''};;
-    localStorage.removeItem('ORCA-USER');
+    localStorage.removeItem('ORCATRAIN-USER');
   }
 
   // returns the webservice to use
@@ -96,8 +96,7 @@ export class AppService {
     };
   }  
   public getShowMenu() {
-    //return this.showMenu;
-    return true;
+    return this.showMenu;
   }
   public setShowMenu(value: boolean) {
     this.showMenu = value;
