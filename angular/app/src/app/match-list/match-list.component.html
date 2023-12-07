@@ -1,0 +1,16 @@
+<div>
+    <table class="table table-bordered table-sm">
+      <tr class="table-primary">
+        <th>Team</th>
+        <th>Match Type</th>
+        <th>Match Number</th>
+      </tr>
+
+      <tr *ngFor="let m of getMatches()">
+        <td>{{ m.teamId }}</td>
+        <td>{{ m.matchType }}</td>
+        <td>{{ m.matchNumber }}</td>
+      </tr>
+    </table>
+
+  </div>
