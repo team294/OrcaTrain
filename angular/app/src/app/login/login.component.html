@@ -2,17 +2,19 @@
 
 	<h1>Login</h1>
 
-	<table>
-		<tr>
-			<th>Username</th>
-			<td><input [(ngModel)]="userLogin.username" type="text"/></td>
-		</tr>
-		<tr>
-			<th>Password</th>
-			<td><input [(ngModel)]="userLogin.password" type="password"/></td>
-		</tr>
-	</table>
-
+	<div>
+		<table>
+			<tr>
+				<th>Username</th>
+				<td><input [(ngModel)]="userLogin.username" type="text"/></td>
+			</tr>
+			<tr>
+				<th>Password</th>
+				<td><input [(ngModel)]="userLogin.password" type="password"/></td>
+			</tr>
+		</table>
+	</div>
+	
 	<div>
         <button (click)="login()" >Login</button>
 	</div>

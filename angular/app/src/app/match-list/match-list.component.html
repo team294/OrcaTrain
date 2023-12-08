@@ -1,16 +1,19 @@
 <div>
-    <table class="table table-bordered table-sm">
-      <tr class="table-primary">
-        <th>Team</th>
-        <th>Match Type</th>
-        <th>Match Number</th>
-      </tr>
-
-      <tr *ngFor="let m of matchList">
-        <td>{{ m.teamId }}</td>
-        <td>{{ m.matchType }}</td>
-        <td>{{ m.matchNumber }}</td>
-      </tr>
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-primary">
+          <th scope="col">Team</th>
+          <th scope="col">Match Type</th>
+          <th scope="col">Match Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of matchList">
+          <td>{{ m.teamId }}</td>
+          <td>{{ m.matchType }}</td>
+          <td>{{ m.matchNumber }}</td>
+        </tr>
+      </tbody>
     </table>
 
   </div>

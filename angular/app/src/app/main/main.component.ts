@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appService: AppService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.appService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

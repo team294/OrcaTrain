@@ -33,9 +33,10 @@ export class AppService {
     if (this.user.token == '') {
       console.log('getUser() user is null');
       let localUser = localStorage.getItem('ORCATRAIN-USER');
-      if (localUser) this.setUser(JSON.parse(localUser));
-      if (this.user) {
+      if (localUser) {
+        this.setUser(JSON.parse(localUser));
         console.log('getUser() got user from localstorage ', localUser);
+        this.setShowMenu(true);
       } else {
         console.log('getUser() no user in localstorage');
       }
